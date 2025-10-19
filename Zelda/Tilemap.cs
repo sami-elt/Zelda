@@ -116,6 +116,13 @@ namespace Zelda
                             new Vector2(j * tileSize, i * tileSize),
                             true);
                     }
+                    else if (level[i][j] == 'z')
+                    {
+                        tileArray[j, i] = new Tileset(
+                            TextureHandler.zeldaTexture,
+                            new Vector2(j * tileSize, i * tileSize),
+                            true);
+                    }
 
                 }
 
