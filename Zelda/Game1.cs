@@ -17,11 +17,20 @@ namespace Zelda
         private Zelda door;
 
         private int life = 3;
+
+        enum GameState 
+        {
+            Menu,
+            GamePlay,
+            GameEnded
+        }
+
+        private GameState gameState;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
 
-            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2;
+            _graphics.PreferredBackBufferWidth = 2000;
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2;
 
             Content.RootDirectory = "Content";
@@ -61,9 +70,40 @@ namespace Zelda
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            player.Update(gameTime);
+            switch (gameState)
+            {
+                case GameState.Menu:
+                    //add gamestart logic
+                    break;
+                case GameState.GamePlay:
 
-            if(player.GetPlayerRectangle().Intersects(key.GetZeldaRectangle()))
+                    player.Update(gameTime);
+
+                    foreach (Enemy enemy in tileMap.enemies)
+                    {
+                        enemy.Update(gameTime);
+                    }
+
+                    KeyAndDoorLogic();
+                    EnemyIntersectsWithPlayer();
+                    SwordIntersectsWithEnemy();
+
+                    break;
+                case GameState.GameEnded:
+                    //add endgame logic
+                    break;
+            }
+
+
+
+
+            // TODO: Add your update logic here
+
+            base.Update(gameTime);
+        }
+        private void KeyAndDoorLogic()
+        {
+            if (player.GetPlayerRectangle().Intersects(key.GetZeldaRectangle()))
             {
                 player.GotKey = true;
 
@@ -71,9 +111,9 @@ namespace Zelda
 
             }
 
-            if(player.GetPlayerRectangle().Intersects(door.GetZeldaRectangle()))
+            if (player.GetPlayerRectangle().Intersects(door.GetZeldaRectangle()))
             {
-                if(player.GotKey)
+                if (player.GotKey)
                 {
                     Debug.WriteLine("winning");
                 }
@@ -82,26 +122,26 @@ namespace Zelda
                     Debug.WriteLine("get the key");
                 }
             }
+        }
 
-            foreach (Enemy enemy in tileMap.enemies)
-            {
-                enemy.Update(gameTime);
-            }
-
+        private void SwordIntersectsWithEnemy()
+        {
             for (int i = tileMap.enemies.Count - 1; i >= 0; i--)
             {
                 Enemy enemy = tileMap.enemies[i];
 
-                foreach (Rectangle swordRect in player.GetSwordRectangles())
+                foreach (Rectangle swordRectangle in player.GetSwordRectangles())
                 {
-                    if (swordRect.Intersects(enemy.GetEnemyRectangle()))
+                    if (swordRectangle.Intersects(enemy.GetEnemyRectangle()))
                     {
                         tileMap.enemies.RemoveAt(i);
                         break;
                     }
                 }
             }
-
+        }
+        private void EnemyIntersectsWithPlayer()
+        {
             foreach (Enemy enemy in tileMap.enemies)
             {
                 if (enemy.GetEnemyRectangle().Intersects(player.GetPlayerRectangle()))
@@ -118,10 +158,6 @@ namespace Zelda
                     }
                 }
             }
-
-            // TODO: Add your update logic here
-
-            base.Update(gameTime);
         }
 
 
@@ -131,23 +167,33 @@ namespace Zelda
 
             spriteBatch.Begin();
 
-            tileMap.Draw(spriteBatch);
-
-            player.Draw(spriteBatch);
-
-            if (!player.GotKey)
+            switch (gameState)
             {
-                key.Draw(spriteBatch);
+                case GameState.Menu:
+                    //Add start menu
+                    break;
+                case GameState.GamePlay:
+                    tileMap.Draw(spriteBatch);
+                    player.Draw(spriteBatch);
+
+                    if (!player.GotKey)
+                    {
+                        key.Draw(spriteBatch);
+                    }
+
+                    door.Draw(spriteBatch);
+
+                    foreach (Enemy enemy in tileMap.enemies)
+                    {
+                        enemy.Draw(spriteBatch);
+                    }
+                    break;
+                case GameState.GameEnded:
+                    //add endgame drawing
+                    break;
+
             }
 
-
-            door.Draw(spriteBatch); 
-
-
-            foreach (Enemy enemy in tileMap.enemies)
-            {
-                enemy.Draw(spriteBatch);
-            }
 
             spriteBatch.End();
 

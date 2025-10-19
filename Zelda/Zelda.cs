@@ -29,11 +29,6 @@ namespace Zelda
             return new Rectangle((int)position.X, (int)position.Y, tileSize, tileSize);
         }
 
-        //public Rectangle GetKeyRectangle()
-        //{
-        //    return new Rectangle((int)position.X, (int)position.Y, tileSize, tileSize);
-        //}
-
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture,position,Color.White);

@@ -30,7 +30,7 @@ namespace Zelda
             this.position = position;
             this.tileMap = tileMap;
 
-            speed = random.Next(20, 80);
+            speed = random.Next(20, 120);
         }
 
         public void ChangeDirection(Vector2 dir)
