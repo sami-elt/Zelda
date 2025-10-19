@@ -13,6 +13,9 @@ namespace Zelda
 
         public Player player;
         public List <Enemy> enemies = new List <Enemy>();
+        public Zelda key, door;
+
+        public Vector2 positionDoor;
 
         public List<string> ReadFromFile(string path)
         {
@@ -74,16 +77,44 @@ namespace Zelda
                     else if(level[i][j] == 'k')
                     {
                         tileArray[j, i] = new Tileset(
-                            TextureHandler.keyTexture,
+                            TextureHandler.grassTexture,
                             new Vector2(j * tileSize, i * tileSize),
                             false);
+
+                        key = new Zelda(TextureHandler.keyTexture, new Vector2(j * tileSize, i * tileSize));
+
                     }
                     else if (level[i][j] == 'd')
                     {
                         tileArray[j, i] = new Tileset(
-                            TextureHandler.doorTexture,
+                            TextureHandler.grassTexture,
+                            new Vector2(j * tileSize, i * tileSize),
+                            true);
+
+                        door = new Zelda(TextureHandler.doorTexture, new Vector2(j * tileSize, i * tileSize));
+
+                        positionDoor = new Vector2(j,i);
+                    }
+                    else if (level[i][j] == 'l')
+                    {
+                        tileArray[j, i] = new Tileset(
+                            TextureHandler.bridgeTexture,
                             new Vector2(j * tileSize, i * tileSize),
                             false);
+                    }
+                    else if (level[i][j] == 'v')
+                    {
+                        tileArray[j, i] = new Tileset(
+                            TextureHandler.waterTexture,
+                            new Vector2(j * tileSize, i * tileSize),
+                            true);
+                    }
+                    else if (level[i][j] == 's')
+                    {
+                        tileArray[j, i] = new Tileset(
+                            TextureHandler.wallTexture,
+                            new Vector2(j * tileSize, i * tileSize),
+                            true);
                     }
 
                 }
@@ -91,6 +122,11 @@ namespace Zelda
 
 
             }
+        }
+
+        public void IfDoorUnlocked()
+        {
+            tileArray[(int)positionDoor.X, (int)positionDoor.Y].wall = false;
         }
 
         public bool GetTileAtPosition(Vector2 vec)

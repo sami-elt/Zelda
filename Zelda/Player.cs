@@ -23,7 +23,7 @@ namespace Zelda
 
         private List<Vector2> swordAttacks = new List<Vector2>();
 
-        
+        public bool GotKey { get; set; } = false;
 
         private bool moving = false;
 

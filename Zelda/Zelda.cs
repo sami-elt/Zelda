@@ -24,15 +24,15 @@ namespace Zelda
         
         }
 
-        public Rectangle GetDoorRectangle()
+        public Rectangle GetZeldaRectangle()
         {
             return new Rectangle((int)position.X, (int)position.Y, tileSize, tileSize);
         }
 
-        public Rectangle GetKeyRectangle()
-        {
-            return new Rectangle((int)position.X, (int)position.Y, tileSize, tileSize);
-        }
+        //public Rectangle GetKeyRectangle()
+        //{
+        //    return new Rectangle((int)position.X, (int)position.Y, tileSize, tileSize);
+        //}
 
         public void Draw(SpriteBatch spriteBatch)
         {

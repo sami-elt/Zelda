@@ -13,7 +13,8 @@ namespace Zelda
         private SpriteBatch spriteBatch;
         private TileMap tileMap;
         private Player player;
-        private Zelda zelda;
+        private Zelda key;
+        private Zelda door;
 
         private int life = 3;
         public Game1()
@@ -47,6 +48,9 @@ namespace Zelda
 
             player = tileMap.player;
 
+            door = tileMap.door;
+            key = tileMap.key;
+
 
 
             // TODO: use this.Content to load your game content here
@@ -58,6 +62,26 @@ namespace Zelda
                 Exit();
 
             player.Update(gameTime);
+
+            if(player.GetPlayerRectangle().Intersects(key.GetZeldaRectangle()))
+            {
+                player.GotKey = true;
+
+                tileMap.IfDoorUnlocked();
+
+            }
+
+            if(player.GetPlayerRectangle().Intersects(door.GetZeldaRectangle()))
+            {
+                if(player.GotKey)
+                {
+                    Debug.WriteLine("winning");
+                }
+                else
+                {
+                    Debug.WriteLine("get the key");
+                }
+            }
 
             foreach (Enemy enemy in tileMap.enemies)
             {
@@ -111,7 +135,16 @@ namespace Zelda
 
             player.Draw(spriteBatch);
 
-            foreach(Enemy enemy in tileMap.enemies)
+            if (!player.GotKey)
+            {
+                key.Draw(spriteBatch);
+            }
+
+
+            door.Draw(spriteBatch); 
+
+
+            foreach (Enemy enemy in tileMap.enemies)
             {
                 enemy.Draw(spriteBatch);
             }
