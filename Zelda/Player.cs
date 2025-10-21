@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 
 namespace Zelda
@@ -82,6 +83,7 @@ namespace Zelda
                 else if (Keyboard.GetState().IsKeyDown(Keys.Space) && previousKeyboardState.IsKeyUp(Keys.Space))
                 {
                     Vector2 swordStart = new Vector2(position.X + tileSize, position.Y + tileSize / 2);
+
                     swordAttacks.Add(swordStart);
                 }
 
@@ -100,6 +102,7 @@ namespace Zelda
             for (int i = 0; i < swordAttacks.Count; i++)
             {
                 swordAttacks[i] += new Vector2(1, 0) * attackSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                
             }
         }
 
@@ -117,6 +120,7 @@ namespace Zelda
             {
                 swordRectangles.Add(new Rectangle((int)sword.X, (int)sword.Y, 10, 10));
             }
+
             return swordRectangles;
         }
 

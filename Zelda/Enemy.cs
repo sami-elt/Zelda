@@ -63,6 +63,7 @@ namespace Zelda
             moving = false;
 
             Vector2 changeDirectionIfHit = new Vector2(-direction.X, 0);
+
             ChangeDirection(changeDirectionIfHit);
         }
 

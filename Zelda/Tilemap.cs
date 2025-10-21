@@ -136,9 +136,9 @@ namespace Zelda
             tileArray[(int)positionDoor.X, (int)positionDoor.Y].wall = false;
         }
 
-        public bool GetTileAtPosition(Vector2 vec)
+        public bool GetTileAtPosition(Vector2 position)
         {
-            return tileArray[(int)vec.X / tileSize, (int)vec.Y / tileSize].wall;
+            return tileArray[(int)position.X / tileSize, (int)position.Y / tileSize].wall;
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -21,6 +21,9 @@ namespace Zelda
         public static Texture2D wallTexture;
         public static Texture2D waterTexture;
         public static Texture2D linkTexture;
+        public static Texture2D startScreenTexture;
+
+        public static SpriteFont font;
 
         public static void LoadContent(ContentManager content)
         {
@@ -36,6 +39,8 @@ namespace Zelda
             stoneFloorTexture = content.Load<Texture2D>("stonefloor");
             wallTexture = content.Load<Texture2D>("wall");
             waterTexture = content.Load<Texture2D>("water");
+            startScreenTexture = content.Load<Texture2D>("spacebackground1");
+            font = content.Load<SpriteFont>("font");
 
 
         }

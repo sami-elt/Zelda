@@ -17,6 +17,10 @@ namespace Zelda
         private Zelda door;
 
         private int life = 3;
+        private float timer = 0f;
+        private float invunarable = 2f;
+        private bool isInvunarable = false;
+
 
         enum GameState 
         {
@@ -30,7 +34,7 @@ namespace Zelda
         {
             _graphics = new GraphicsDeviceManager(this);
 
-            _graphics.PreferredBackBufferWidth = 2000;
+            _graphics.PreferredBackBufferWidth = 1600;
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2;
 
             Content.RootDirectory = "Content";
@@ -70,12 +74,26 @@ namespace Zelda
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+
             switch (gameState)
             {
                 case GameState.Menu:
-                    //add gamestart logic
+
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                    {
+                        gameState = GameState.GamePlay;
+                    }
                     break;
                 case GameState.GamePlay:
+
+                    if (isInvunarable)
+                    {
+                        timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        if (timer <= 0)
+                        {
+                            isInvunarable = false;
+                        }
+                    }
 
                     player.Update(gameTime);
 
@@ -87,15 +105,8 @@ namespace Zelda
                     KeyAndDoorLogic();
                     EnemyIntersectsWithPlayer();
                     SwordIntersectsWithEnemy();
-
-                    break;
-                case GameState.GameEnded:
-                    //add endgame logic
                     break;
             }
-
-
-
 
             // TODO: Add your update logic here
 
@@ -115,6 +126,7 @@ namespace Zelda
             {
                 if (player.GotKey)
                 {
+                    gameState = GameState.GameEnded;
                     Debug.WriteLine("winning");
                 }
                 else
@@ -132,11 +144,15 @@ namespace Zelda
 
                 foreach (Rectangle swordRectangle in player.GetSwordRectangles())
                 {
+
                     if (swordRectangle.Intersects(enemy.GetEnemyRectangle()))
                     {
                         tileMap.enemies.RemoveAt(i);
+
+                        
                         break;
                     }
+
                 }
             }
         }
@@ -146,14 +162,19 @@ namespace Zelda
             {
                 if (enemy.GetEnemyRectangle().Intersects(player.GetPlayerRectangle()))
                 {
-                    life--;
+                    if(!isInvunarable)
+                    {
+                        life--;
+                        isInvunarable = true;
+
+                        timer = invunarable;
+                    }
 
                     enemy.ChangeDirectionIfHit();
 
                     if (life <= 0)
                     {
-
-                        //implementera gameover screen
+                        gameState = GameState.GameEnded;
                         Debug.WriteLine("u dead");
                     }
                 }
@@ -170,7 +191,13 @@ namespace Zelda
             switch (gameState)
             {
                 case GameState.Menu:
-                    //Add start menu
+                    gameState = GameState.GamePlay;
+
+
+                    spriteBatch.Draw(TextureHandler.startScreenTexture, new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height),
+                    Color.White);
+                    spriteBatch.DrawString(TextureHandler.font, "PRESS ENTER", Vector2.Zero, Color.Red);
+
                     break;
                 case GameState.GamePlay:
                     tileMap.Draw(spriteBatch);
@@ -189,7 +216,7 @@ namespace Zelda
                     }
                     break;
                 case GameState.GameEnded:
-                    //add endgame drawing
+                        CheckWinOrLoose();
                     break;
 
             }
@@ -200,6 +227,18 @@ namespace Zelda
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+
+        private void CheckWinOrLoose()
+        {
+            if(life == 0)
+            {
+                spriteBatch.DrawString(TextureHandler.font, "GAME OVER", Vector2.Zero, Color.White);
+            }
+            else
+            {
+                spriteBatch.DrawString(TextureHandler.font, "You Win", Vector2.Zero, Color.White);
+            }
         }
     }
 }
