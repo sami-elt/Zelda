@@ -23,6 +23,7 @@ namespace Zelda
         private KeyboardState previousKeyboardState;
 
         private List<Vector2> swordAttacks = new List<Vector2>();
+        private List<float> swordRange = new List<float>();
 
         public bool GotKey { get; set; } = false;
 
@@ -84,7 +85,9 @@ namespace Zelda
                 {
                     Vector2 swordStart = new Vector2(position.X + tileSize, position.Y + tileSize / 2);
 
+
                     swordAttacks.Add(swordStart);
+                    swordRange.Add(0f);
                 }
 
             }
@@ -101,9 +104,19 @@ namespace Zelda
 
             for (int i = 0; i < swordAttacks.Count; i++)
             {
+
                 swordAttacks[i] += new Vector2(1, 0) * attackSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                
+                swordRange[i] += attackSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (swordRange[i] > tileSize * 3)
+                {
+                    swordAttacks.RemoveAt(i);
+                    swordRange.RemoveAt(i);
+                }
+
             }
+
+            
         }
 
 
@@ -131,7 +144,7 @@ namespace Zelda
 
             foreach (var sword in swordAttacks)
             {
-                spriteBatch.Draw(tex, new Rectangle((int)sword.X, (int)sword.Y, 10, 10),
+                spriteBatch.Draw(tex, new Rectangle((int)sword.X, (int)sword.Y, 20, 10),
             Color.Brown);
             }
         }

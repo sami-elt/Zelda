@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+
 
 
 namespace Zelda
@@ -138,9 +139,11 @@ namespace Zelda
 
         private void SwordIntersectsWithEnemy()
         {
+
             for (int i = tileMap.enemies.Count - 1; i >= 0; i--)
             {
                 Enemy enemy = tileMap.enemies[i];
+
 
                 foreach (Rectangle swordRectangle in player.GetSwordRectangles())
                 {
@@ -149,7 +152,7 @@ namespace Zelda
                     {
                         tileMap.enemies.RemoveAt(i);
 
-                        
+
                         break;
                     }
 

@@ -59,6 +59,7 @@ namespace Zelda
 
         public void ChangeDirectionIfHit()
         {
+            
 
             moving = false;
 
