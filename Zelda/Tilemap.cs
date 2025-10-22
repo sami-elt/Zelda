@@ -13,7 +13,7 @@ namespace Zelda
 
         public Player player;
         public List <Enemy> enemies = new List <Enemy>();
-        public Zelda key, door;
+        public ZeldaMechanics key, door;
 
         public Vector2 positionDoor;
 
@@ -81,7 +81,7 @@ namespace Zelda
                             new Vector2(j * tileSize, i * tileSize),
                             false);
 
-                        key = new Zelda(TextureHandler.keyTexture, new Vector2(j * tileSize, i * tileSize));
+                        key = new ZeldaMechanics(TextureHandler.keyTexture, new Vector2(j * tileSize, i * tileSize));
 
                     }
                     else if (level[i][j] == 'd')
@@ -91,7 +91,7 @@ namespace Zelda
                             new Vector2(j * tileSize, i * tileSize),
                             true);
 
-                        door = new Zelda(TextureHandler.doorTexture, new Vector2(j * tileSize, i * tileSize));
+                        door = new ZeldaMechanics(TextureHandler.doorTexture, new Vector2(j * tileSize, i * tileSize));
 
                         positionDoor = new Vector2(j,i);
                     }

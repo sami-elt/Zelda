@@ -14,8 +14,8 @@ namespace Zelda
         private SpriteBatch spriteBatch;
         private TileMap tileMap;
         private Player player;
-        private Zelda key;
-        private Zelda door;
+        private ZeldaMechanics key;
+        private ZeldaMechanics door;
 
         private int life = 3;
         private float timer = 0f;
@@ -184,6 +184,30 @@ namespace Zelda
             }
         }
 
+        private void DrawStartScreen()
+        {
+
+            string message = "PRESS ENTER TO PLAY";
+
+            Vector2 textSize = TextureHandler.font.MeasureString(message);
+
+            Vector2 origin = textSize * 0.5f;
+
+            Vector2 position = new Vector2(
+                GraphicsDevice.PresentationParameters.BackBufferWidth,
+                GraphicsDevice.PresentationParameters.BackBufferHeight
+            ) * 0.5f;
+
+            spriteBatch.Draw(TextureHandler.startScreenTexture, new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height),
+            Color.White);
+            spriteBatch.DrawString(TextureHandler.font, message, position, Color.Red,
+                0.0f,
+                origin,
+                1.0f,
+                SpriteEffects.None,
+                0.0f);
+        }
+
 
         protected override void Draw(GameTime gameTime)
         {
@@ -194,12 +218,9 @@ namespace Zelda
             switch (gameState)
             {
                 case GameState.Menu:
-                    gameState = GameState.GamePlay;
+                    //gameState = GameState.GamePlay;
 
-
-                    spriteBatch.Draw(TextureHandler.startScreenTexture, new Rectangle(0, 0, Window.ClientBounds.Width, Window.ClientBounds.Height),
-                    Color.White);
-                    spriteBatch.DrawString(TextureHandler.font, "PRESS ENTER", Vector2.Zero, Color.Red);
+                    DrawStartScreen();
 
                     break;
                 case GameState.GamePlay:
@@ -234,13 +255,13 @@ namespace Zelda
 
         private void CheckWinOrLoose()
         {
-            if(life == 0)
+            if (life == 0)
             {
-                spriteBatch.DrawString(TextureHandler.font, "GAME OVER", Vector2.Zero, Color.White);
+                spriteBatch.DrawString(TextureHandler.font, "GAME OVER", Vector2.One, Color.White);
             }
             else
             {
-                spriteBatch.DrawString(TextureHandler.font, "You Win", Vector2.Zero, Color.White);
+                spriteBatch.DrawString(TextureHandler.font, "You Win", Vector2.One, Color.White);
             }
         }
     }

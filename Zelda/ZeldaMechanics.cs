@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Zelda
 {
-    public class Zelda
+    public class ZeldaMechanics
     {
         private Texture2D texture;
         private Vector2 position;
@@ -17,7 +17,7 @@ namespace Zelda
 
 
 
-        public Zelda(Texture2D texture, Vector2 position) { 
+        public ZeldaMechanics(Texture2D texture, Vector2 position) { 
         
             this.texture = texture;
             this.position = position;
