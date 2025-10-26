@@ -54,7 +54,3 @@ Under detta projekt har jag fördjupat mina kunskaper inom:
 - Ljud och musik
 - Flera nivåer
 - Bättre UI för liv-visning
-
-## Licens
-
-MIT License
