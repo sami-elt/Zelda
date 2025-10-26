@@ -2,7 +2,7 @@
 
 Ett 2D äventyrsspel inspirerat av The Legend of Zelda, byggt med MonoGame och C#.
 
-[https://github.com/user-attachments/assets/...](https://github.com/user-attachments/assets/d10b8e4f-b0ab-42bc-8b04-8882f4cc7e9a)
+![Game Screenshot](https://github.com/user-attachments/assets/d10b8e4f-b0ab-42bc-8b04-8882f4cc7e9a)
 
 ## Om Projektet
 
