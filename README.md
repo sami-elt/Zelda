@@ -1,12 +1,12 @@
 # Zelda Game Project
 
-Ett 2D äventyrsspel inspirerat av The Legend of Zelda, byggt med MonoGame och C#.
+Ett 2D spel inspirerat av The Legend of Zelda, byggt med MonoGame och C#.
 
 ![Game Screenshot](https://github.com/user-attachments/assets/d10b8e4f-b0ab-42bc-8b04-8882f4cc7e9a)
 
 ## Om Projektet
 
-Detta projekt är ett tile-baserat äventyrsspel där spelaren ska hitta en nyckel och ta sig till dörren samtidigt som de undviker eller besegrar skelettfiender. Spelet är byggt med MonoGame framework och använder tile-baserad kollisionsdetektion.
+Detta projekt är ett tile-baserat spel där spelaren ska hitta en nyckel och ta sig till dörren samtidigt som de undviker eller besegrar skelettfiender. Spelet är byggt med MonoGame framework och använder tile-baserad kollisionsdetektion.
 
 ## Funktioner
 
